@@ -1,0 +1,32 @@
+{
+  "name": "parsers",
+  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "^8.1.4"
+  },
+  "homepage": "https://github.com/invisible-tech/parsers#readme",
+  "author": {
+    "name": "Invisible Technologies",
+    "email": "tng@invisible.email",
+    "url": "https://gihub.com/invisible-tech"
+  },
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "./postinstall.js",
+    "lint": "eslint --cache -f node_modules/eslint-formatter-pretty scripts src test",
+    "pretest": "yarn run lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "pegjs-import": "invisible-tech/pegjs-import"
+  },
+  "bugs": {
+    "url": "https://github.com/invisible-tech/parsers/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/invisible-tech/parsers.git"
+  }
+}
