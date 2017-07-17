@@ -26,6 +26,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@https://github.com/invisible-tech/parsers.git"
+    "url": "git+https://github.com/invisible-tech/parsers.git"
   }
 }
