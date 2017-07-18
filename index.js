@@ -40,9 +40,9 @@ const files = flow(
   filter(f => isPegjsFile(f))
 )(dirs)
 
-function parsers({ makeGracefulActive = true }) { files.reduce((acc, file,) => {
+const parsers = ({ graceful = true }) => { files.reduce((acc, file,) => {
   const name = path.parse(file).name
-  if (makeGracefulActive) {
+  if (graceful) {
     const parser = flow(peg.buildParser, makeGraceful)(file)
     return Object.assign(acc, { [name]: parser })
   } else {
