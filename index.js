@@ -40,10 +40,16 @@ const files = flow(
   filter(f => isPegjsFile(f))
 )(dirs)
 
-const parsers = files.reduce((acc, file) => {
+function parsers({ makeGracefulActive = true }) { files.reduce((acc, file,) => {
   const name = path.parse(file).name
-  const parser = flow(peg.buildParser, makeGraceful)(file)
-  return Object.assign(acc, { [name]: parser })
-}, {})
+  if (makeGracefulActive) {
+    const parser = flow(peg.buildParser, makeGraceful)(file)
+    return Object.assign(acc, { [name]: parser })
+  } else {
+    const parser = peg.buildParser(file)
+    return Object.assign(acc, { [name]: parser })
+  }
+  
+}, {})}
 
 module.exports = parsers
