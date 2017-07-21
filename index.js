@@ -1,7 +1,6 @@
 'use strict'
 
-const peg = require('pegjs-import')
-
+const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
 const {
@@ -9,15 +8,16 @@ const {
   filter,
   map,
   flatten,
+  partialRight,
 } = require('lodash/fp')
 
-const helpersDir = 'helpers'
 const isPegjsFile = f => /.+\.pegjs$/i.test(f)
 
-const dirs = [
-  __dirname,
-  path.join(__dirname, `./${helpersDir}`),
-]
+const findFilesInDirectory = dir =>
+  [
+    __dirname,
+    path.join(__dirname, `./${dir}`),
+  ]
 
 // Get an array of the full file paths of all files in the dir
 const readdirSyncFilePaths = dir => map(f => path.join(dir, f))(fs.readdirSync(dir))
