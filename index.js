@@ -34,7 +34,7 @@ const makeGraceful = parser =>
   }
 
 // Load the files in
-const files = flow(
+const files = dirs => flow(
   map(readdirSyncFilePaths),
   flatten,
   filter(f => isPegjsFile(f))
