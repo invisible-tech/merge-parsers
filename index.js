@@ -40,10 +40,28 @@ const files = dirs => flow(
   filter(f => isPegjsFile(f))
 )(dirs)
 
-const parsers = files.reduce((acc, file) => {
-  const name = path.parse(file).name
-  const parser = flow(peg.buildParser, makeGraceful)(file)
-  return Object.assign(acc, { [name]: parser })
-}, {})
+const turnFileIntoGrammar = file => fs.readFileSync(file).toString() // dont look for dependencies and dont remove comments.
+
+const parsers = ({ peg = true, pathdir = './parsers', graceful = true, pegOptions = false } = {}) => { // peg = require('./node_modules/pegjs') -> pass linting
+  assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
+  assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
+  const parsersPath = pathdir // pathdir = './myParsers' // without '../.' + -> for tests.
+  const dirs = findFilesInDirectory(parsersPath)
+  const filesArray = files(dirs)
+
+  return filesArray.reduce((acc, file) => {
+    if (graceful) {
+      const name = path.parse(file).name
+      const buildParser = partialRight(peg.generate)([pegOptions])
+      const parser = flow(turnFileIntoGrammar, buildParser, makeGraceful)(file)
+      return Object.assign(acc, { [name]: parser })
+    } else {
+      const name = path.parse(file).name
+      const buildParser = partialRight(peg.generate)([pegOptions])
+      const parser = flow(turnFileIntoGrammar, buildParser)(file).parse
+      return Object.assign(acc, { [name]: parser })
+    }
+  }, {})
+}
 
 module.exports = parsers
