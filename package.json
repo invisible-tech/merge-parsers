@@ -16,10 +16,15 @@
   "scripts": {
     "lint": "eslint --cache -f node_modules/eslint-formatter-pretty scripts src test",
     "pretest": "yarn run lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "dependencies": {
-    "pegjs-import": "invisible-tech/pegjs-import"
+    "assert": "^1.4.1",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.4",
+    "lodash-fp": "^0.10.4",
+    "mocha": "^3.4.2",
+    "path": "^0.12.7"
   },
   "bugs": {
     "url": "https://github.com/invisible-tech/parsers/issues"
