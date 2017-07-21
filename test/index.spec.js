@@ -22,7 +22,7 @@ describe('parsers', () => {
     const actual = parsers({ peg, pathdir })
 
     const expected = 'function'
-    assert.deepStrictEqual(typeof actual.whitespace, expected, '')
+    assert.deepStrictEqual(typeof actual.whitespace, expected, 'it does not return a function as expected')
   })
 
   it('disables graceful', () => {
