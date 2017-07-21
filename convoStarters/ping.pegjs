@@ -1,2 +1,0 @@
-start
-  = 'ping' { return 'pong' }
