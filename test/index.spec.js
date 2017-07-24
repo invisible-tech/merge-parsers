@@ -1,7 +1,11 @@
 'use strict'
 
 const assert = require('assert')
+const fs = require('fs')
 const parsers = require('../index.js')
+const {
+  flow,
+} = require('lodash/fp')
 
 describe('parsers', () => {
   it('returns the filename as a key', () => {
@@ -11,11 +15,11 @@ describe('parsers', () => {
     const parser = parsers({ peg, pathdir })
     const actual = Object.keys(parser)
 
-    const expected = ['whitespace'] // it only has whitespace in this directory. Would I use fs and path to get the name?
+    const expected = ['eol', 'whitespace']
     assert.deepStrictEqual(actual, expected, 'it does not return the filename as a key')
   })
 
-  it('returns a function as value of the parser', () => {
+  it('returns a parser function', () => {
     const peg = require('pegjs')
     const pathdir = './helpers/'
 
@@ -25,7 +29,7 @@ describe('parsers', () => {
     assert.deepStrictEqual(typeof actual.whitespace, expected, 'it does not return a function as expected')
   })
 
-  it('disables graceful', () => {
+  it('should return an error by disabling graceful of parser', () => {
     const peg = require('pegjs')
     const pathdir = './helpers/'
     const graceful = false
@@ -36,7 +40,7 @@ describe('parsers', () => {
       try {
         return parser.whitespace(text)
       } catch (e) {
-        return e.name
+        return new Error(`This is a ${e.name} error`)
       }
     }
     const actual = parses('2') // there are other possible errors? How to handle this?
