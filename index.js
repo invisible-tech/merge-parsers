@@ -43,7 +43,7 @@ const listPegjsFiles = dirs => flow(
 
 const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
 
-const parsers = ({ peg = true, pathdir = './parsers', graceful = true, pegOptions = false } = {}) => { // peg = require('./node_modules/pegjs') -> pass linting
+const parsers = ({ peg = true, pegimport = false, pathdir = './parsers', graceful = true, pegOptions = false } = {}) => {
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
   const parsersPath = pathdir
@@ -51,6 +51,14 @@ const parsers = ({ peg = true, pathdir = './parsers', graceful = true, pegOption
   const filesArray = listPegjsFiles(dirs)
 
   return filesArray.reduce((acc, file) => {
+    if (pegimport) {
+      const name = path.parse(file).name
+      const gracefulParser = flow(peg.buildParser, makeGraceful)(file)
+      const nonGracefulParser = peg.buildParser(file).parse
+      const parser = (graceful) ? gracefulParser : nonGracefulParser
+      return assign(acc)({ [name]: parser })
+    }
+
     const name = path.parse(file).name
     const buildParser = partialRight(peg.generate)([pegOptions])
     const gracefulParser = flow(turnFileIntoGrammar, buildParser, makeGraceful)(file)
