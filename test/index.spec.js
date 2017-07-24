@@ -43,23 +43,12 @@ describe('parsers', () => {
         return new Error(`This is a ${e.name} error`)
       }
     }
-    const actual = parses('2') // there are other possible errors? How to handle this?
-    const expected = 'SyntaxError'
-    assert.strictEqual(actual, expected, 'the error was supposed to be a SyntaxError')
+    const actual = parses('2')
+
+    assert(actual instanceof Error, `should throw an error but is returning ${actual}`)
   })
 
-  it('returns the text parsed', () => {
-    const peg = require('pegjs')
-    const pathdir = './helpers/'
-
-    const parser = parsers({ peg, pathdir })
-    const actual = parser.whitespace('    ')
-
-    const expected = [' ', ' ', ' ', ' ']
-    assert.deepStrictEqual(actual, expected, 'it does not return the text parsed in a proper way')
-  })
-
-  it('returns undefined for wrong text to parse', () => {
+  it('returns undefined when graceful is active for a wrong text input', () => {
     const peg = require('pegjs')
     const pathdir = './helpers/'
     const graceful = true
@@ -69,5 +58,34 @@ describe('parsers', () => {
 
     const expected = undefined
     assert.deepStrictEqual(actual, expected, 'it does not fail gracefully returning undefined')
+  })
+
+  it('returns the text parsed', () => {
+    const peg = require('pegjs')
+    const pathdir = './helpers/'
+    const testFile = './helpers/whitespace.pegjs'
+    const text = '    '
+
+    const parser = parsers({ peg, pathdir })
+    const actual = parser.whitespace(text)
+
+    const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
+    const expected = flow(turnFileIntoGrammar, peg.generate)(testFile).parse(text)
+    assert.deepStrictEqual(actual, expected, 'it does not return the text parsed in a proper way')
+  })
+
+  it('should work with pegjs-import', () => {
+    const peg = require('pegjs-import')
+    const pegimport = true
+    const pathdir = './helpers/'
+    const graceful = true
+    const testFile = './helpers/whitespace.pegjs'
+    const text = '    '
+
+    const parser = parsers({ peg, pegimport, pathdir, graceful })
+    const actual = parser.whitespace(text)
+
+    const expected = peg.buildParser(testFile).parse(text)
+    assert.deepStrictEqual(actual, expected, 'it does not return the text parsed in a proper way using pegjs-import')
   })
 })
