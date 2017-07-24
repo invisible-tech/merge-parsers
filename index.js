@@ -59,10 +59,4 @@ const parsers = ({ peg = true, pathdir = './parsers', graceful = true, pegOption
   }, {})
 }
 
-const peg = require('pegjs')
-const pathdir = './helpers'
-let testParser = parsers({ peg, pathdir, graceful: true })
-
-console.log(testParser.whitespace(' '))
-
 module.exports = parsers
