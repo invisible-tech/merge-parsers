@@ -6,7 +6,7 @@
   "engines": {
     "node": "^8.1.4"
   },
-  "homepage": "https://github.com/invisible-tech/parsers#readme",
+  "homepage": "https://github.com/invisible-tech/merge-parsers#readme",
   "author": {
     "name": "Invisible Technologies",
     "email": "tng@invisible.email",
@@ -25,11 +25,11 @@
     "lodash-fp": "^0.10.4"
   },
   "bugs": {
-    "url": "https://github.com/invisible-tech/parsers/issues"
+    "url": "https://github.com/invisible-tech/merge-parsers/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/invisible-tech/parsers.git"
+    "url": "git+https://github.com/invisible-tech/merge-parsers.git"
   },
   "devDependencies": {
     "mocha": "^3.4.2",
