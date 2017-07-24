@@ -50,18 +50,19 @@ const parsers = ({ peg = true, pathdir = './parsers', graceful = true, pegOption
   const filesArray = files(dirs)
 
   return filesArray.reduce((acc, file) => {
-    if (graceful) {
-      const name = path.parse(file).name
-      const buildParser = partialRight(peg.generate)([pegOptions])
-      const parser = flow(turnFileIntoGrammar, buildParser, makeGraceful)(file)
-      return Object.assign(acc, { [name]: parser })
-    } else {
-      const name = path.parse(file).name
-      const buildParser = partialRight(peg.generate)([pegOptions])
-      const parser = flow(turnFileIntoGrammar, buildParser)(file).parse
-      return Object.assign(acc, { [name]: parser })
-    }
+    const name = path.parse(file).name
+    const buildParser = partialRight(peg.generate)([pegOptions])
+    const parserWithGraceful = flow(turnFileIntoGrammar, buildParser, makeGraceful)(file)
+    const parserWithoutGraceful = flow(turnFileIntoGrammar, buildParser)(file).parse
+    const parser = (graceful) ? parserWithGraceful : parserWithoutGraceful
+    return Object.assign(acc, { [name]: parser })
   }, {})
 }
+
+const peg = require('pegjs')
+const pathdir = './helpers'
+let testParser = parsers({ peg, pathdir, graceful: true })
+
+console.log(testParser.whitespace(' '))
 
 module.exports = parsers
