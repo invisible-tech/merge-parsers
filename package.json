@@ -22,9 +22,7 @@
     "assert": "^1.4.1",
     "fs": "0.0.1-security",
     "lodash": "^4.17.4",
-    "lodash-fp": "^0.10.4",
-    "mocha": "^3.4.2",
-    "path": "^0.12.7"
+    "lodash-fp": "^0.10.4"
   },
   "bugs": {
     "url": "https://github.com/invisible-tech/parsers/issues"
@@ -32,5 +30,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/invisible-tech/parsers.git"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "path": "^0.12.7"
   }
 }
