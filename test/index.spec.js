@@ -14,29 +14,24 @@ const parsers = require('../index.js')
 
 describe('parsers', () => {
   it('returns the filename as a key', () => {
-    const pathdir = './helpers/'
+    const parser = parsers({ peg })
 
-    const parser = parsers({ peg, pathdir })
     const actual = Object.keys(parser)
-
     const expected = ['eol', 'whitespace']
     assert.deepStrictEqual(actual, expected, 'it does not return the filename as a key')
   })
 
   it('returns a function', () => {
-    const pathdir = './helpers/'
-
-    const actual = parsers({ peg, pathdir })
+    const actual = parsers({ peg })
 
     const expected = 'function'
     assert.deepStrictEqual(typeof actual.whitespace, expected, 'it does not return a function as expected')
   })
 
   it('should throw when gracefulness is disabled', () => {
-    const pathdir = './helpers/'
     const graceful = false
 
-    const parser = parsers({ peg, pathdir, graceful })
+    const parser = parsers({ peg, graceful })
 
     const parses = text => {
       try {
@@ -51,10 +46,9 @@ describe('parsers', () => {
   })
 
   it('should return undefined when gracefulness is enabled', () => {
-    const pathdir = './helpers/'
     const graceful = true
 
-    const parser = parsers({ peg, pathdir, graceful })
+    const parser = parsers({ peg, graceful })
     const actual = parser.whitespace('2')
 
     const expected = undefined
@@ -62,12 +56,11 @@ describe('parsers', () => {
   })
 
   it('should return a list with parsed elements', () => {
-    const pathdir = './helpers/'
-    const testFilePath = './helpers/whitespace.pegjs'
+    const testFilePath = './test/parsers/whitespace.pegjs'
     const name = path.parse(testFilePath).name
     const text = '    '
 
-    const parser = parsers({ peg, pathdir })
+    const parser = parsers({ peg })
 
     const actual = parser[name](text)
     const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
@@ -77,13 +70,11 @@ describe('parsers', () => {
 
   it('should work with pegjs-import', () => {
     const pegimport = true
-    const pathdir = './helpers/'
-    const graceful = true
-    const testFilePath = './helpers/whitespace.pegjs'
+    const testFilePath = './test/parsers/whitespace.pegjs'
     const name = path.parse(testFilePath).name
     const text = '    '
 
-    const parser = parsers({ peg: pegjsImport, pegimport, pathdir, graceful })
+    const parser = parsers({ peg: pegjsImport, pegimport })
 
     const actual = parser[name](text)
     const expected = pegjsImport.buildParser(testFilePath).parse(text)
