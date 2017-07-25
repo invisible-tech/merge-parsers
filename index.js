@@ -14,9 +14,8 @@ const {
 
 const isPegjsFile = f => /.+\.pegjs$/i.test(f)
 
-const listFilesInDirectory = dir =>
+const listDirectoryPath = dir =>
   [
-    __dirname,
     path.join(__dirname, `./${dir}`),
   ]
 
@@ -47,8 +46,8 @@ const parsers = ({ peg = true, pegimport = false, pathdir = './parsers', gracefu
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
   const parsersPath = pathdir
-  const dirs = listFilesInDirectory(parsersPath)
-  const filesArray = listPegjsFiles(dirs)
+  const dirPath = listDirectoryPath(parsersPath)
+  const filesArray = listPegjsFiles(dirPath)
 
   return filesArray.reduce((acc, file) => {
     if (pegimport) {
