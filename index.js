@@ -46,7 +46,7 @@ const parsers = ({ peg = true, pegimport = false, pathdir = `${__dirname}/test/p
 
   return filesArray.reduce((acc, file) => {
     const name = path.parse(file).name
-    const buildParser = partialRight(peg.generate)([pegOptions]) // (pegimport) ? partialRight(peg.buildParser)([pegOptions]) :
+    const buildParser = partialRight(peg.generate)([pegOptions])
     const gracefulParser = (pegimport) ? flow(buildParser, makeGraceful)(file) : flow(turnFileIntoGrammar, buildParser, makeGraceful)(file)
     const nonGracefulParser = (pegimport) ? buildParser(file).parse : flow(turnFileIntoGrammar, buildParser)(file).parse
     const parser = (graceful) ? gracefulParser : nonGracefulParser
