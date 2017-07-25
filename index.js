@@ -41,6 +41,7 @@ const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
 const parsers = ({ peg = true, pegimport = false, pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions = false } = {}) => {
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
+  assert.strictEqual(typeof pegimport, 'boolean', 'the pegimport option must be a boolean.')
   const filesArray = listPegjsFiles([pathdir])
 
   return filesArray.reduce((acc, file) => {
