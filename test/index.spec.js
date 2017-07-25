@@ -3,6 +3,7 @@
 const assert = require('assert')
 const fs = require('fs')
 const parsers = require('../index.js')
+const path = require('path')
 const {
   flow,
 } = require('lodash/fp')
@@ -63,14 +64,15 @@ describe('parsers', () => {
   it('returns the text parsed', () => {
     const peg = require('pegjs')
     const pathdir = './helpers/'
-    const testFile = './helpers/whitespace.pegjs'
+    const testFileDir = './helpers/whitespace.pegjs'
+    const name = path.parse(testFileDir).name
     const text = '    '
 
     const parser = parsers({ peg, pathdir })
-    const actual = parser.whitespace(text)
+    const actual = parser[name](text)
 
     const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
-    const expected = flow(turnFileIntoGrammar, peg.generate)(testFile).parse(text)
+    const expected = flow(turnFileIntoGrammar, peg.generate)(testFileDir).parse(text)
     assert.deepStrictEqual(actual, expected, 'it does not return the text parsed in a proper way')
   })
 
@@ -79,13 +81,14 @@ describe('parsers', () => {
     const pegimport = true
     const pathdir = './helpers/'
     const graceful = true
-    const testFile = './helpers/whitespace.pegjs'
+    const testFileDir = './helpers/whitespace.pegjs'
+    const name = path.parse(testFileDir).name
     const text = '    '
 
     const parser = parsers({ peg, pegimport, pathdir, graceful })
-    const actual = parser.whitespace(text)
+    const actual = parser[name](text)
 
-    const expected = peg.buildParser(testFile).parse(text)
+    const expected = peg.buildParser(testFileDir).parse(text)
     assert.deepStrictEqual(actual, expected, 'it does not return the text parsed in a proper way using pegjs-import')
   })
 })
