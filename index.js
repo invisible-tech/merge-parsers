@@ -14,11 +14,6 @@ const {
 
 const isPegjsFile = f => /.+\.pegjs$/i.test(f)
 
-const listDirectoryPath = dir =>
-  [
-    path.join(__dirname, `./${dir}`),
-  ]
-
 // Get an array of the full file paths of all files in the dir
 const readdirSyncFilePaths = dir => map(f => path.join(dir, f))(fs.readdirSync(dir))
 
@@ -42,18 +37,17 @@ const listPegjsFiles = dirs => flow(
 
 const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
 
-const parsers = ({ peg = true, pegimport = false, pathdir = './parsers', graceful = true, pegOptions = false } = {}) => {
+const parsers = ({ peg = true, pegimport = false, pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions = false } = {}) => {
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  const parsersPath = pathdir
-  const dirPath = listDirectoryPath(parsersPath)
-  const filesArray = listPegjsFiles(dirPath)
+  const filesArray = listPegjsFiles([pathdir])
 
   return filesArray.reduce((acc, file) => {
     if (pegimport) {
       const name = path.parse(file).name
-      const gracefulParser = flow(peg.buildParser, makeGraceful)(file)
-      const nonGracefulParser = peg.buildParser(file).parse
+      const buildParser = partialRight(peg.buildParser)([pegOptions])
+      const gracefulParser = flow(buildParser, makeGraceful)(file)
+      const nonGracefulParser = buildParser(file).parse
       const parser = (graceful) ? gracefulParser : nonGracefulParser
       return assign(acc)({ [name]: parser })
     }
