@@ -3,6 +3,7 @@
 const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
+const peg = require('pegjs-import')
 
 const {
   assign,
@@ -36,22 +37,19 @@ const listPegjsFiles = dirs => flow(
   filter(f => isPegjsFile(f))
 )(dirs)
 
-const turnFileIntoGrammar = file => fs.readFileSync(file, 'utf8')
-
-const parsers = ({ peg = true, pegimport = false, pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions = false } = {}) => {
+const parsers = ({ pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions = false } = {}) => {
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  assert.strictEqual(typeof pegimport, 'boolean', 'the pegimport option must be a boolean.')
   const filesArray = listPegjsFiles([pathdir])
 
   return filesArray.reduce((acc, file) => {
     const name = path.parse(file).name
-    const buildParser = partialRight(peg.generate)([pegOptions])
-    const gracefulParser = (pegimport) ? flow(buildParser, makeGraceful)(file) : flow(turnFileIntoGrammar, buildParser, makeGraceful)(file)
-    const nonGracefulParser = (pegimport) ? buildParser(file).parse : flow(turnFileIntoGrammar, buildParser)(file).parse
+    const buildParser = partialRight(peg.buildParser)([pegOptions])
+    const gracefulParser = flow(buildParser, makeGraceful)(file)
+    const nonGracefulParser = buildParser(file).parse
     const parser = (graceful) ? gracefulParser : nonGracefulParser
     return assign(acc)({ [name]: parser })
   }, {})
 }
 
-module.exports = { parsers }
+module.exports = parsers
