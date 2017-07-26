@@ -24,7 +24,7 @@
     "lodash": "^4.17.4",
     "lodash-fp": "^0.10.4",
     "path": "^0.12.7",
-    "pegjs-import": "github:invisible-tech/pegjs-import"
+    "pegjs-import": "github:invisible-tech/pegjs-import#^0.2.7"
   },
   "bugs": {
     "url": "https://github.com/invisible-tech/merge-parsers/issues"
