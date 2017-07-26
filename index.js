@@ -19,6 +19,13 @@ const isPegjsFile = f => /.+\.pegjs$/i.test(f)
 // Get an array of the full file paths of all files in the dir
 const readdirSyncFilePaths = dir => map(f => path.join(dir, f))(fs.readdirSync(dir))
 
+// Load the files in
+const listPegjsFiles = dirs => flow(
+  map(readdirSyncFilePaths),
+  flatten,
+  filter(f => isPegjsFile(f))
+)(dirs)
+
 // Makes a parser fail gracefully
 const makeGraceful = parser =>
   text => {
@@ -29,13 +36,6 @@ const makeGraceful = parser =>
       return undefined
     }
   }
-
-// Load the files in
-const listPegjsFiles = dirs => flow(
-  map(readdirSyncFilePaths),
-  flatten,
-  filter(f => isPegjsFile(f))
-)(dirs)
 
 const parsers = ({ pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions = false } = {}) => {
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
