@@ -7,7 +7,7 @@ const peg = require('pegjs-import')
 const parsers = require('../index.js')
 
 describe('parsers', () => {
-  it('returns the filename as a key', () => {
+  it('should return the filenames as keys', () => {
     const parser = parsers()
 
     const actual = Object.keys(parser)
@@ -15,8 +15,8 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not return the filename as a key')
   })
 
-  it('returns a function', () => {
-    const actual = parsers({ peg })
+  it('should return a function', () => {
+    const actual = parsers()
 
     const expected = 'function'
     assert.deepStrictEqual(typeof actual.whitespace, expected, 'it does not return a function as expected')
@@ -42,7 +42,7 @@ describe('parsers', () => {
   it('should return undefined when gracefulness is enabled', () => {
     const graceful = true
 
-    const parser = parsers({ peg, graceful })
+    const parser = parsers({ graceful })
     const actual = parser.whitespace('2')
 
     const expected = undefined
