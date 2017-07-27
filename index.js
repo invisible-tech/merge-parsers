@@ -24,7 +24,7 @@ const listPegjsFiles = dirs => flow(
   map(readdirSyncFilePaths),
   flatten,
   filter(f => isPegjsFile(f))
-)(dirs)
+)([dirs])
 
 // Makes a parser fail gracefully
 const makeGraceful = parser =>
@@ -37,18 +37,18 @@ const makeGraceful = parser =>
     }
   }
 
-const parsers = ({ pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions } = {}) => {
+const parsers = ({ path: pathdir = `${__dirname}/test/parsers`, graceful = true, pegOptions } = {}) => {
   assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  const filesArray = listPegjsFiles([pathdir])
+  const filesArray = listPegjsFiles(pathdir)
 
   return filesArray.reduce((acc, file) => {
-    const { name } = path.parse(file)
+    const { name: fileName } = path.parse(file)
     const buildParser = partialRight(peg.buildParser)([pegOptions])
-    const gracefulParser = flow(buildParser, makeGraceful)(file)
-    const nonGracefulParser = buildParser(file).parse
-    const parser = (graceful) ? gracefulParser : nonGracefulParser
-    return assign(acc)({ [name]: parser })
+    const parser = (graceful)
+      ? flow(buildParser, makeGraceful)(file)
+      : buildParser(file).parse
+    return assign(acc)({ [fileName]: parser })
   }, {})
 }
 
