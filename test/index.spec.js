@@ -35,7 +35,6 @@ describe('parsers', () => {
       }
     }
     const actual = parses('2')
-
     assert(actual instanceof Error, `should throw an error but is returning ${actual}`)
   })
 
