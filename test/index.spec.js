@@ -42,20 +42,20 @@ describe('parsers', () => {
     const graceful = true
 
     const parser = parsers({ graceful })
-    const actual = parser.whitespace('2')
 
+    const actual = parser.whitespace('2')
     const expected = undefined
     assert.deepStrictEqual(actual, expected, 'it does not fail gracefully returning undefined')
   })
 
-  it('should return a list with parsed elements', () => {
+  it('should return the parses output', () => {
     const testFilePath = './test/parsers/whitespace.pegjs'
-    const name = path.parse(testFilePath).name
+    const fileName = path.parse(testFilePath).name
     const text = '    '
 
     const parser = parsers()
 
-    const actual = parser[name](text)
+    const actual = parser[fileName](text)
     const expected = peg.buildParser(testFilePath).parse(text)
     assert.deepStrictEqual(actual, expected, 'it does not return a list with parsed elements')
   })
