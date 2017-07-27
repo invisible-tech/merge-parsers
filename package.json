@@ -14,16 +14,13 @@
   },
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js ./test/",
+    "lint": "eslint index.js test",
     "pretest": "yarn run lint",
     "test": "mocha test/index.spec.js"
   },
   "dependencies": {
     "assert": "^1.4.1",
-    "fs": "0.0.1-security",
     "lodash": "^4.17.4",
-    "lodash-fp": "^0.10.4",
-    "path": "^0.12.7",
     "pegjs-import": "github:invisible-tech/pegjs-import#^0.2.7"
   },
   "bugs": {
