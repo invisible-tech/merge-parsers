@@ -45,9 +45,9 @@ const parsers = ({ path: pathdir = `${__dirname}/../../src/parsers`, graceful = 
   return filesArray.reduce((acc, file) => {
     const { name: fileName } = path.parse(file)
     const buildParser = partialRight(peg.buildParser)([pegOptions])
-    const parser = (graceful)
-      ? flow(buildParser, makeGraceful)(file)
-      : buildParser(file).parse
+    const parser = (graceful) ?
+      flow(buildParser, makeGraceful)(file) :
+      buildParser(file).parse
     return assign(acc)({ [fileName]: parser })
   }, {})
 }
