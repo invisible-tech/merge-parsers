@@ -8,24 +8,29 @@ const parsers = require('../index.js')
 
 describe('parsers', () => {
   it('should return the filenames as keys', () => {
-    const parser = parsers()
+    const testPath = './test/parsers'
+
+    const parser = parsers({ path: testPath })
 
     const actual = Object.keys(parser)
     const expected = ['eol', 'whitespace']
-    assert.deepStrictEqual(actual, expected, 'it does not return the filename as a key')
+    assert.deepStrictEqual(actual, expected, 'it does not return the filenames as keys')
   })
 
   it('should return a function', () => {
-    const actual = parsers()
+    const testPath = './test/parsers'
+
+    const actual = parsers({ path: testPath })
 
     const expected = 'function'
     assert.deepStrictEqual(typeof actual.whitespace, expected, 'it does not return a function as expected')
   })
 
   it('should throw when gracefulness is disabled', () => {
+    const testPath = './test/parsers'
     const graceful = false
 
-    const parser = parsers({ graceful })
+    const parser = parsers({ graceful, path: testPath })
 
     const parses = text => {
       try {
@@ -39,9 +44,10 @@ describe('parsers', () => {
   })
 
   it('should return undefined when gracefulness is enabled', () => {
+    const testPath = './test/parsers'
     const graceful = true
 
-    const parser = parsers({ graceful })
+    const parser = parsers({ graceful, path: testPath })
 
     const actual = parser.whitespace('2')
     const expected = undefined
@@ -49,14 +55,15 @@ describe('parsers', () => {
   })
 
   it('should return the parses output', () => {
+    const testPath = './test/parsers'
     const testFilePath = './test/parsers/whitespace.pegjs'
     const fileName = path.parse(testFilePath).name
     const text = '    '
 
-    const parser = parsers()
+    const parser = parsers({ path: testPath })
 
     const actual = parser[fileName](text)
     const expected = peg.buildParser(testFilePath).parse(text)
-    assert.deepStrictEqual(actual, expected, 'it does not return a list with parsed elements')
+    assert.deepStrictEqual(actual, expected, 'it does not return the parsed output')
   })
 })
