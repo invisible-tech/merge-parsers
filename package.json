@@ -14,7 +14,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js test",
+    "lint": "eslint index.js test --fix",
     "pretest": "yarn run lint",
     "test": "mocha test/index.spec.js"
   },
