@@ -54,7 +54,7 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not fail gracefully returning undefined')
   })
 
-  it('should return the parses output', () => {
+  it('should return the parser\'s output', () => {
     const testPath = './test/parsers'
     const testFilePath = './test/parsers/whitespace.pegjs'
     const fileName = path.parse(testFilePath).name
