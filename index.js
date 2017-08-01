@@ -38,10 +38,10 @@ const makeGraceful = parser =>
     }
   }
 
-const parsers = ({ path: pathdir, graceful = true, pegOptions } = {}) => {
-  assert.strictEqual(typeof pathdir, 'string', 'the path directory must be a string.')
+const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
+  assert.strictEqual(typeof pathDir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  const filesArray = listPegjsFiles(pathdir)
+  const filesArray = listPegjsFiles(pathDir)
 
   return filesArray.reduce((acc, file) => {
     const { name: fileName } = path.parse(file)
