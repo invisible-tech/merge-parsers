@@ -11,6 +11,7 @@ const {
   filter,
   get,
   map,
+  method,
   flatten,
   partialRight,
 } = require('lodash/fp')
@@ -38,6 +39,8 @@ const makeGraceful = parser =>
     }
   }
 
+const nonGraceful = parser => text => parser.parse(text)
+
 const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
   assert.strictEqual(typeof pathDir, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
@@ -45,10 +48,10 @@ const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
 
   return filesArray.reduce((acc, file) => {
     const { name: fileName } = path.parse(file)
-    const buildParser = partialRight(peg.buildParser)([pegOptions])
+    const buildParser = partialRight(peg.buildParser)([file, pegOptions])
     const parser = (graceful)
-      ? flow(buildParser, makeGraceful)(file)
-      : flow(buildParser, get('parse'))(file)
+      ? flow(buildParser, makeGraceful)()
+      : flow(buildParser, nonGraceful)()
     return assign(acc)({ [fileName]: parser })
   }, {})
 }
