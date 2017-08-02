@@ -9,11 +9,8 @@ const {
   assign,
   flow,
   filter,
-  get,
   map,
-  method,
   flatten,
-  partialRight,
 } = require('lodash/fp')
 
 const isPegjsFile = f => /.+\.pegjs$/i.test(f)
@@ -29,17 +26,18 @@ const listPegjsFiles = dirs => flow(
 )([dirs])
 
 // Makes a parser fail gracefully
-const makeGraceful = parser =>
-  text => {
-    // We try & catch here so parsers return undefined instead of throwing and crashing
-    try {
-      return parser.parse(text)
-    } catch (e) {
-      return undefined
-    }
+const makeGraceful = parser => {
+  return { parse:
+      text => {
+        // We try & catch here so parsers return undefined instead of throwing and crashing
+        try {
+          return parser.parse(text)
+        } catch (e) {
+          return undefined
+        }
+      },
   }
-
-const nonGraceful = parser => text => parser.parse(text)
+}
 
 const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
   assert.strictEqual(typeof pathDir, 'string', 'the path directory must be a string.')
@@ -48,11 +46,11 @@ const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
 
   return filesArray.reduce((acc, file) => {
     const { name: fileName } = path.parse(file)
-    const buildParser = partialRight(peg.buildParser)([file, pegOptions])
-    const parser = (graceful)
-      ? flow(buildParser, makeGraceful)()
-      : flow(buildParser, nonGraceful)()
-    return assign(acc)({ [fileName]: parser })
+    const buildParser = peg.buildParser(file, pegOptions)
+    const { parse } = (graceful)
+      ? makeGraceful(buildParser)
+      : buildParser
+    return assign(acc)({ [fileName]: parse })
   }, {})
 }
 
