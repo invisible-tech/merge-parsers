@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "plugin:lodash-fp/recommended",
+    "./.codeclimate.eslintrc.json"
+  ],
+  "plugins": [
+    "lodash-fp"
+    ],
+  "settings": {
+    "lodash": {
+      "pragma": "fp"
+    }
+  }
+}
