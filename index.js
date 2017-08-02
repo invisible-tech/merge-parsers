@@ -27,16 +27,15 @@ const listPegjsFiles = dirs => flow(
 
 // Makes a parser fail gracefully
 const makeGraceful = parser => {
-  return { parse:
-      text => {
-        // We try & catch here so parsers return undefined instead of throwing and crashing
-        try {
-          return parser.parse(text)
-        } catch (e) {
-          return undefined
-        }
-      },
+  const parse = text => {
+    // We try & catch here so parsers return undefined instead of throwing and crashing
+    try {
+      return parser.parse(text)
+    } catch (e) {
+      return undefined
+    }
   }
+  return { parse }
 }
 
 const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
