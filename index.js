@@ -1,30 +1,33 @@
 'use strict'
 
-const peg = require('pegjs-import')
-
+const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
+const peg = require('pegjs-import')
+
 const {
+  assign,
   flow,
   filter,
   map,
   flatten,
 } = require('lodash/fp')
 
-const helpersDir = 'helpers'
 const isPegjsFile = f => /.+\.pegjs$/i.test(f)
-
-const dirs = [
-  __dirname,
-  path.join(__dirname, `./${helpersDir}`),
-]
 
 // Get an array of the full file paths of all files in the dir
 const readdirSyncFilePaths = dir => map(f => path.join(dir, f))(fs.readdirSync(dir))
 
+// Load the files in
+const listPegjsFiles = dirs => flow(
+  map(readdirSyncFilePaths),
+  flatten,
+  filter(f => isPegjsFile(f))
+)([dirs])
+
 // Makes a parser fail gracefully
-const makeGraceful = parser =>
-  text => {
+const makeGraceful = parser => {
+  const parse = text => {
     // We try & catch here so parsers return undefined instead of throwing and crashing
     try {
       return parser.parse(text)
@@ -32,18 +35,22 @@ const makeGraceful = parser =>
       return undefined
     }
   }
+  return { parse }
+}
 
-// Load the files in
-const files = flow(
-  map(readdirSyncFilePaths),
-  flatten,
-  filter(f => isPegjsFile(f))
-)(dirs)
+const parsers = ({ path: pathDir, graceful = true, pegOptions } = {}) => {
+  assert.strictEqual(typeof pathDir, 'string', 'the path directory must be a string.')
+  assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
+  const filesArray = listPegjsFiles(pathDir)
 
-const parsers = files.reduce((acc, file) => {
-  const name = path.parse(file).name
-  const parser = flow(peg.buildParser, makeGraceful)(file)
-  return Object.assign(acc, { [name]: parser })
-}, {})
+  return filesArray.reduce((acc, file) => {
+    const { name: fileName } = path.parse(file)
+    const buildParser = peg.buildParser(file, pegOptions)
+    const { parse } = (graceful)
+      ? makeGraceful(buildParser)
+      : buildParser
+    return assign(acc)({ [fileName]: parse })
+  }, {})
+}
 
 module.exports = parsers
