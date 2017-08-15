@@ -1,29 +1,17 @@
 'use strict'
 
 const assert = require('assert')
-const fs = require('fs')
+const glob = require('glob')
 const path = require('path')
 const peg = require('pegjs-import')
 
 const {
   assign,
-  flow,
-  filter,
-  map,
-  flatten,
 } = require('lodash/fp')
 
-const isPegjsFile = f => /.+\.pegjs$/i.test(f)
-
-// Get an array of the full file paths of all files in the dir
-const readdirSyncFilePaths = dir => map(f => path.join(dir, f))(fs.readdirSync(dir))
-
-// Load the files in
-const listPegjsFiles = dirs => flow(
-  map(readdirSyncFilePaths),
-  flatten,
-  filter(f => isPegjsFile(f))
-)([dirs])
+const listPegjsFiles = dir =>
+  glob.sync('*.pegjs', { cwd: dir, nodir: true })
+    .map(f => path.join(dir, f))
 
 // Makes a parser fail gracefully
 const makeGraceful = parser => {
