@@ -1,7 +1,11 @@
 {
   "name": "merge-parsers",
   "license": "UNLICENSED",
+<<<<<<< HEAD
   "version": "1.0.1",
+=======
+  "version": "1.1.0",
+>>>>>>> f33a121... refactor: resolveDir, add test and fix version
   "description": "",
   "engines": {
     "node": "^8.1.4"
@@ -15,6 +19,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
+    "postinstall": "scripts/postinstall.js",
     "pretest": "yarn run lint",
     "test": "mocha $(find test -name '*.spec.js')"
   },
@@ -38,6 +43,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
     "glob": "^7.1.2",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "shelljs": "^0.7.8"
   }
 }
