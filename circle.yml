@@ -14,7 +14,7 @@ machine:
     PORT: 3000
 
   node:
-    version: "8.1.2"
+    version: "8.1.4"
 
   timezone: America/Los_Angeles
 
