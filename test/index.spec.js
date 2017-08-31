@@ -17,6 +17,22 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not return the filenames as keys')
   })
 
+  it('should work with symlinks', () => {
+    const testPath = '~/test/parsers'
+
+    const parser = parsers({ path: testPath })
+
+    const actual = Object.keys(parser)
+    const expected = ['eol', 'whitespace']
+    assert.deepStrictEqual(actual, expected, 'it does not work with symlinks')
+  })
+
+  it('should throw with an invalid directory', () => {
+    const testPath = '~/test/passes'
+
+    assert.throws(() => parsers({ path: testPath }))
+  })
+
   it('should return a function', () => {
     const testPath = './test/parsers'
 
@@ -32,15 +48,7 @@ describe('parsers', () => {
 
     const parser = parsers({ graceful, path: testPath })
 
-    const parses = text => {
-      try {
-        return parser.whitespace(text)
-      } catch (e) {
-        return new Error(`This is a ${e.name} error`)
-      }
-    }
-    const actual = parses('2')
-    assert(actual instanceof Error, `should throw an error but is returning ${actual}`)
+    assert.throws(() => parser.whitespace('2'))
   })
 
   it('should return undefined when gracefulness is enabled', () => {
