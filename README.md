@@ -4,11 +4,11 @@ Generate parsers for each `.pegjs` file in a directory. Accepts `@import` syntax
 
 ## Install
 
-`npm install @invisible/merge-parsers`
+`npm install merge-parsers`
 
 or
 
-`yarn add @invisible/merge-parsers`
+`yarn add merge-parsers`
 
 ## Usage
 ```js
