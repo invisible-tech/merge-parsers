@@ -12,7 +12,7 @@ or
 
 ## Usage
 ```js
-const mergeParsers = require('@invisible/merge-parsers')
+const mergeParsers = require('merge-parsers')
 
 const parsers = mergeParsers({ path: './parsers' }) // path contains foo.pegjs and bar.pegjs
 
