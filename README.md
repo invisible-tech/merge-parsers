@@ -1,18 +1,18 @@
-# merge-parsers
+# @invisible/merge-parsers
 
 Generate parsers for each `.pegjs` file in a directory. Accepts `@import` syntax from pegjs-import.
 
 ## Install
 
-`npm install merge-parsers`
+`npm install @invisible/merge-parsers`
 
 or
 
-`yarn add merge-parsers`
+`yarn add @invisible/merge-parsers`
 
 ## Usage
 ```js
-const mergeParsers = require('merge-parsers')
+const mergeParsers = require('@invisible/merge-parsers')
 
 const parsers = mergeParsers({ path: './parsers' }) // path contains foo.pegjs and bar.pegjs
 

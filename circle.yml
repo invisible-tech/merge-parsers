@@ -26,4 +26,4 @@ deployment:
   release:
     branch: master
     commands:
-      - npm publish
+      - npm publish --access=public
