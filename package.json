@@ -32,15 +32,8 @@
     "url": "git+https://github.com/invisible-tech/merge-parsers.git"
   },
   "devDependencies": {
-    "@invisible/eslint-config": "invisible-tech/inv-lint#rgo/bootstrap",
+    "@invisible/eslint-config": "invisible-tech/eslint-config#rgo/bootstrap",
     "eslint": "^4.7.1",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-formatter-pretty": "^1.3.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-lodash-fp": "^2.1.3",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.3.0",
     "glob": "^7.1.2",
     "mocha": "^3.4.2",
     "shelljs": "^0.7.8"
