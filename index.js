@@ -1,10 +1,10 @@
 'use strict'
 
 const assert = require('assert')
+const fs = require('fs')
 const glob = require('glob')
 const path = require('path')
 const peg = require('pegjs-import')
-const fs = require('fs')
 
 const { assign } = require('lodash/fp')
 
