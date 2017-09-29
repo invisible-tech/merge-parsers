@@ -1,7 +1,7 @@
 {
   "name": "@invisible/merge-parsers",
   "license": "MIT",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "",
   "engines": {
     "node": "^8.5.0"
@@ -18,7 +18,7 @@
     "postinstall": "scripts/postinstall.js",
     "pretest": "yarn run lint",
     "test": "mocha $(find test -name '*.spec.js')",
-    "posttest": "nsp check"
+    "posttest": "assert-version-bump && nsp check"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@invisible/eslint-config": "^1.0.0",
+    "@invisible/publish": "^1.1.1",
     "eslint": "^4.7.2",
     "glob": "^7.1.2",
     "mocha": "^3.4.2",
