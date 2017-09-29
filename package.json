@@ -1,7 +1,7 @@
 {
   "name": "@invisible/merge-parsers",
   "license": "MIT",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "",
   "engines": {
     "node": "^8.5.0"
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@invisible/eslint-config": "^1.0.0",
-    "@invisible/publish": "^1.1.1",
+    "@invisible/publish": "^1.1.5",
     "eslint": "^4.7.2",
     "glob": "^7.1.2",
     "mocha": "^3.4.2",
