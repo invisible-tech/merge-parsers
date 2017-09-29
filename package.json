@@ -15,7 +15,6 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
-    "postinstall": "scripts/postinstall.js",
     "pretest": "yarn run lint",
     "test": "mocha $(find test -name '*.spec.js')",
     "posttest": "assert-version-bump && nsp check"

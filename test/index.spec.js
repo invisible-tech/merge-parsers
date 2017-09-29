@@ -17,18 +17,8 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not return the filenames as keys')
   })
 
-  it('should work with symlinks', () => {
-    const testPath = '~/test/parsers'
-
-    const parser = parsers({ path: testPath })
-
-    const actual = Object.keys(parser)
-    const expected = ['eol', 'whitespace']
-    assert.deepStrictEqual(actual, expected, 'it does not work with symlinks')
-  })
-
   it('should throw with an invalid directory', () => {
-    const testPath = '~/test/passes'
+    const testPath = 'a/invalid/directory'
 
     assert.throws(() => parsers({ path: testPath }))
   })
