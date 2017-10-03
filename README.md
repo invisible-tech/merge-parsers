@@ -1,5 +1,7 @@
 # @invisible/merge-parsers
 
+[![CircleCI](https://circleci.com/gh/invisible-tech/merge-parsers/tree/master.svg?style=svg)](https://circleci.com/gh/invisible-tech/merge-parsers/tree/master)
+
 Generate parsers for each `.pegjs` file in a directory. Accepts `@import` syntax from pegjs-import.
 
 ## Install
