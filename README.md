@@ -16,13 +16,15 @@ or
 ```js
 const mergeParsers = require('@invisible/merge-parsers')
 
-const parsers = mergeParsers({ path: './parsers' }) // path contains foo.pegjs and bar.pegjs
+const parsers = mergeParsers({ path: 'src/parsers' }) // path contains foo.pegjs and bar.pegjs
 
 parsers.foo() // calls the `foo` parser
 parsers.bar() // calls the `bar` parser
 ```
 
 ## Options
+
+- path - Path to parsers rules directory. Defaults to `src/parsers`.
 
 - graceful - Instead of raising an error, it fails gracefully returning `undefined`. (default)
 
@@ -32,12 +34,15 @@ parsers.bar() // calls the `bar` parser
 
 ## Miscellaneous information
 
-The module searches for the given path inside the current project directory and if doesn't find it, it tries to search inside `node_modules`.
+The module searches for a relative path inside `src/parsers`.
+
+```js
+const mergeParsers = require('@invisible/merge-parsers')
+
+return mergeParsers({ path: './rules' })
+// the above is the same as:
+return mergeParsers({ path: 'src/parsers/rules' })
 ```
-first -> try to search 'path/to/your/parsers/directory'
-if not found -> try to search 'node_modules/path/to/your/parsers/directory'
-```
-- This is useful if you use symlinks inside `node_modules` to your project main directory, for example.
 
 ## Issues
 
