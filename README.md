@@ -14,9 +14,10 @@ or
 
 ## Usage
 ```js
+// src/parsers/index.js
 const mergeParsers = require('@invisible/merge-parsers')
 
-const parsers = mergeParsers({ path: 'src/parsers' }) // path contains foo.pegjs and bar.pegjs
+const parsers = mergeParsers({ path: './rules' }) // path contains foo.pegjs and bar.pegjs (src/parsers/rules)
 
 parsers.foo() // calls the `foo` parser
 parsers.bar() // calls the `bar` parser
@@ -24,7 +25,7 @@ parsers.bar() // calls the `bar` parser
 
 ## Options
 
-- path - Path to parsers rules directory. Defaults to `src/parsers`.
+- path - Relative path to parsers rules directory.
 
 - graceful - Instead of raising an error, it fails gracefully returning `undefined`. (default)
 
@@ -34,15 +35,7 @@ parsers.bar() // calls the `bar` parser
 
 ## Miscellaneous information
 
-The module searches for a relative path inside `src/parsers`.
-
-```js
-const mergeParsers = require('@invisible/merge-parsers')
-
-return mergeParsers({ path: './rules' })
-// the above is the same as:
-return mergeParsers({ path: 'src/parsers/rules' })
-```
+The module uses relative paths from the file that called the function.
 
 ## Issues
 
