@@ -8,14 +8,12 @@ const peg = require('pegjs-import')
 
 const {
   assign,
-  startsWith,
 } = require('lodash/fp')
 
-const testPath = (...dirPath) => {
-  const dirPathToTest = path.join(process.cwd(), ...dirPath)
+const assertValidPath = dirPath => {
   try {
-    fs.readdirSync(dirPathToTest)
-    return dirPathToTest
+    fs.readdirSync(dirPath)
+    return dirPath
   } catch (err) {
     throw Error('The given path is an invalid directory.')
   }
@@ -38,12 +36,17 @@ const makeGraceful = parser => {
   return { parse }
 }
 
-const parsers = ({ path: dirPath = 'src/parsers', graceful = true, pegOptions } = {}) => {
+const buildRelativePath = dirPath => {
+  const parentDirPath = path.dirname(module.parent.filename)
+  return path.join(parentDirPath, dirPath)
+}
+
+const parsers = ({ path: dirPath, graceful = true, pegOptions } = {}) => {
   assert.strictEqual(typeof dirPath, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  const rulesDir = startsWith('.')(dirPath) ? path.join('src/parsers', dirPath) : dirPath
-  const testedDir = testPath(rulesDir)
-  const filesArray = listPegjsFiles(testedDir)
+  const relativePath = buildRelativePath(dirPath)
+  assertValidPath(relativePath)
+  const filesArray = listPegjsFiles(relativePath)
 
   return filesArray.reduce((acc, file) => {
     const { name: fileName } = path.parse(file)

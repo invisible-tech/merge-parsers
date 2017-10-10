@@ -8,7 +8,7 @@ const parsers = require('../index.js')
 
 describe('parsers', () => {
   it('should return the filenames as keys', () => {
-    const testPath = 'test/parsers'
+    const testPath = './parsers'
 
     const parser = parsers({ path: testPath })
 
@@ -24,7 +24,7 @@ describe('parsers', () => {
   })
 
   it('should return a function', () => {
-    const testPath = 'test/parsers'
+    const testPath = './parsers'
 
     const actual = parsers({ path: testPath })
 
@@ -33,7 +33,7 @@ describe('parsers', () => {
   })
 
   it('should throw when gracefulness is disabled', () => {
-    const testPath = 'test/parsers'
+    const testPath = './parsers'
     const graceful = false
 
     const parser = parsers({ graceful, path: testPath })
@@ -42,7 +42,7 @@ describe('parsers', () => {
   })
 
   it('should return undefined when gracefulness is enabled', () => {
-    const testPath = 'test/parsers'
+    const testPath = './parsers'
     const graceful = true
 
     const parser = parsers({ graceful, path: testPath })
@@ -53,7 +53,7 @@ describe('parsers', () => {
   })
 
   it('should return the parser\'s output', () => {
-    const testPath = 'test/parsers'
+    const testPath = './parsers'
     const testFilePath = './test/parsers/whitespace.pegjs'
     const fileName = path.parse(testFilePath).name
     const text = '    '
