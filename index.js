@@ -6,31 +6,22 @@ const glob = require('glob')
 const path = require('path')
 const peg = require('pegjs-import')
 
-const { assign } = require('lodash/fp')
+const {
+  assign,
+} = require('lodash/fp')
 
-const testPath = (...args) => {
-  const dirPath = path.join(...args)
-  fs.readdirSync(dirPath)
-  return dirPath
-}
-
-const resolveDir = dirPath => {
+const assertValidPath = dirPath => {
   try {
-    // Use given path if it is a reachable directory.
-    return testPath(dirPath)
-  } catch (e) {
-    try {
-      // If not, look inside node_modules.
-      return testPath('node_modules', dirPath)
-    } catch (err) {
-      throw Error('The given path is an invalid directory.')
-    }
+    fs.readdirSync(dirPath)
+    return dirPath
+  } catch (err) {
+    throw Error('The given path is an invalid directory.')
   }
 }
 
-const listPegjsFiles = cwd =>
-  glob.sync('*.pegjs', { cwd, nodir: true })
-    .map(f => path.join(cwd, f))
+const listPegjsFiles = rulesDir =>
+  glob.sync('*.pegjs', { cwd: rulesDir, nodir: true })
+    .map(f => path.join(rulesDir, f))
 
 // Makes a parser fail gracefully
 const makeGraceful = parser => {
@@ -45,11 +36,17 @@ const makeGraceful = parser => {
   return { parse }
 }
 
+const buildRelativePath = dirPath => {
+  const parentDirPath = path.dirname(module.parent.filename)
+  return path.join(parentDirPath, dirPath)
+}
+
 const parsers = ({ path: dirPath, graceful = true, pegOptions } = {}) => {
   assert.strictEqual(typeof dirPath, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  const cwd = resolveDir(dirPath)
-  const filesArray = listPegjsFiles(cwd)
+  const relativePath = buildRelativePath(dirPath)
+  assertValidPath(relativePath)
+  const filesArray = listPegjsFiles(relativePath)
 
   return filesArray.reduce((acc, file) => {
     const { name: fileName } = path.parse(file)

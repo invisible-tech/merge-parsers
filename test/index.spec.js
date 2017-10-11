@@ -8,7 +8,7 @@ const parsers = require('../index.js')
 
 describe('parsers', () => {
   it('should return the filenames as keys', () => {
-    const testPath = './test/parsers'
+    const testPath = './parsers'
 
     const parser = parsers({ path: testPath })
 
@@ -17,24 +17,14 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not return the filenames as keys')
   })
 
-  it('should work with symlinks', () => {
-    const testPath = '~/test/parsers'
-
-    const parser = parsers({ path: testPath })
-
-    const actual = Object.keys(parser)
-    const expected = ['eol', 'whitespace']
-    assert.deepStrictEqual(actual, expected, 'it does not work with symlinks')
-  })
-
   it('should throw with an invalid directory', () => {
-    const testPath = '~/test/passes'
+    const testPath = 'a/invalid/directory'
 
     assert.throws(() => parsers({ path: testPath }))
   })
 
   it('should return a function', () => {
-    const testPath = './test/parsers'
+    const testPath = './parsers'
 
     const actual = parsers({ path: testPath })
 
@@ -43,7 +33,7 @@ describe('parsers', () => {
   })
 
   it('should throw when gracefulness is disabled', () => {
-    const testPath = './test/parsers'
+    const testPath = './parsers'
     const graceful = false
 
     const parser = parsers({ graceful, path: testPath })
@@ -52,7 +42,7 @@ describe('parsers', () => {
   })
 
   it('should return undefined when gracefulness is enabled', () => {
-    const testPath = './test/parsers'
+    const testPath = './parsers'
     const graceful = true
 
     const parser = parsers({ graceful, path: testPath })
@@ -63,7 +53,7 @@ describe('parsers', () => {
   })
 
   it('should return the parser\'s output', () => {
-    const testPath = './test/parsers'
+    const testPath = './parsers'
     const testFilePath = './test/parsers/whitespace.pegjs'
     const fileName = path.parse(testFilePath).name
     const text = '    '
