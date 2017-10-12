@@ -25,3 +25,4 @@ deployment:
     branch: master
     commands:
       - ./node_modules/.bin/publish
+      - ./node_modules/.bin/push-changelog-update
