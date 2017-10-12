@@ -2,7 +2,7 @@
 
 const assert = require('assert')
 const path = require('path')
-const peg = require('pegjs-import')
+const peg = require('@invisible/pegjs-import')
 
 const parsers = require('../index.js')
 

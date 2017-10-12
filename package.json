@@ -1,7 +1,7 @@
 {
   "name": "@invisible/merge-parsers",
   "license": "MIT",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "engines": {
     "node": "^8.5.0"
@@ -17,12 +17,12 @@
     "lint": "eslint . --ignore-path .gitignore",
     "pretest": "yarn run lint",
     "test": "mocha $(find test -name '*.spec.js')",
-    "posttest": "assert-version-bump && nsp check"
+    "posttest": "assert-version-bump && assert-changelog-update --quiet && nsp check"
   },
   "dependencies": {
+    "@invisible/pegjs-import": "^1.0.1",
     "glob": "^7.1.2",
     "lodash": "^4.17.4",
-    "pegjs-import": "github:invisible-tech/pegjs-import#^0.2.7",
     "shelljs": "^0.7.8"
   },
   "bugs": {
@@ -33,9 +33,10 @@
     "url": "git+https://github.com/invisible-tech/merge-parsers.git"
   },
   "devDependencies": {
-    "@invisible/eslint-config": "^1.0.0",
-    "@invisible/publish": "^1.1.5",
-    "eslint": "^4.7.2",
+    "@invisible/changelog-update": "^1.0.7",
+    "@invisible/eslint-config": "^1.1.6",
+    "@invisible/publish": "^1.1.8",
+    "eslint": "^4.8.0",
     "mocha": "^3.4.2",
     "nsp": "^2.8.1"
   }
