@@ -22,8 +22,7 @@
   "dependencies": {
     "@invisible/pegjs-import": "^1.0.1",
     "glob": "^7.1.2",
-    "lodash": "^4.17.4",
-    "shelljs": "^0.7.8"
+    "lodash": "^4.17.4"
   },
   "bugs": {
     "url": "https://github.com/invisible-tech/merge-parsers/issues"
