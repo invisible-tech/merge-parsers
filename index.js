@@ -6,10 +6,6 @@ const glob = require('glob')
 const path = require('path')
 const peg = require('@invisible/pegjs-import')
 
-const {
-  assign,
-} = require('lodash/fp')
-
 const assertValidPath = dirPath => {
   try {
     fs.readdirSync(dirPath)
@@ -54,7 +50,7 @@ const parsers = ({ path: dirPath, graceful = true, pegOptions } = {}) => {
     const { parse } = (graceful)
       ? makeGraceful(buildParser)
       : buildParser
-    return assign(acc)({ [fileName]: parse })
+    return { ...acc, [fileName]: parse }
   }, {})
 }
 

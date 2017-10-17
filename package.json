@@ -1,7 +1,7 @@
 {
   "name": "@invisible/merge-parsers",
   "license": "MIT",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "",
   "engines": {
     "node": "^8.5.0"
@@ -21,9 +21,7 @@
   },
   "dependencies": {
     "@invisible/pegjs-import": "^1.0.1",
-    "glob": "^7.1.2",
-    "lodash": "^4.17.4",
-    "shelljs": "^0.7.8"
+    "glob": "^7.1.2"
   },
   "bugs": {
     "url": "https://github.com/invisible-tech/merge-parsers/issues"
