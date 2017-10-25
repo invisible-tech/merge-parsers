@@ -17,7 +17,7 @@ or
 // src/parsers/index.js
 const mergeParsers = require('@invisible/merge-parsers')
 
-const parsers = mergeParsers({ path: './rules' }) // path contains foo.pegjs and bar.pegjs (src/parsers/rules)
+const parsers = mergeParsers({ path: './rules' }) // path contains foo.pegjs and bar.pegjs
 
 parsers.foo() // calls the `foo` parser
 parsers.bar() // calls the `bar` parser
@@ -25,7 +25,7 @@ parsers.bar() // calls the `bar` parser
 
 ## Options
 
-- path - Relative path to parsers rules directory.
+- path - Absolute or relative path to parsers rules directory.
 
 - graceful - Instead of raising an error, it fails gracefully returning `undefined`. (default)
 
