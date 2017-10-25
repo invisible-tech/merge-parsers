@@ -3,6 +3,9 @@
 const assert = require('assert')
 const path = require('path')
 const peg = require('@invisible/pegjs-import')
+const {
+  isEmpty,
+} = require('lodash/fp')
 
 const parsers = require('../index.js')
 
@@ -21,6 +24,14 @@ describe('parsers', () => {
     const testPath = 'a/invalid/directory'
 
     assert.throws(() => parsers({ path: testPath }))
+  })
+
+  it('should return an empty array for directories without any .pegjs files', () => {
+    const testPath = './'
+
+    const actual = parsers({ path: testPath })
+
+    assert(isEmpty(actual), 'it does not return an empty array as expected')
   })
 
   it('should return a function', () => {
