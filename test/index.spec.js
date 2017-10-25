@@ -20,6 +20,16 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not return the filenames as keys')
   })
 
+  it('should work with absolute paths', () => {
+    const testPath = path.join(__dirname, 'parsers')
+
+    const parser = parsers({ path: testPath })
+
+    const actual = Object.keys(parser)
+    const expected = ['eol', 'whitespace']
+    assert.deepStrictEqual(actual, expected, 'it does not work with absolute path')
+  })
+
   it('should throw with an invalid directory', () => {
     const testPath = 'a/invalid/directory'
 
