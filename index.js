@@ -3,21 +3,33 @@
 const assert = require('assert')
 const fs = require('fs')
 const glob = require('glob')
-const path = require('path')
+const pathLib = require('path')
 const peg = require('@invisible/pegjs-import')
 
-const assertValidPath = dirPath => {
+const isValidPath = path => {
   try {
-    fs.readdirSync(dirPath)
-    return dirPath
+    fs.readdirSync(path)
+    return path
   } catch (err) {
-    throw Error('The given path is an invalid directory.')
+    return undefined
   }
+}
+
+const buildAbsolutePath = path => {
+  const parentDirPath = pathLib.dirname(module.parent.filename)
+  return pathLib.join(parentDirPath, path)
+}
+
+const resolveDir = path => {
+  const absolutePath = pathLib.isAbsolute(path) ? path : buildAbsolutePath(path)
+  if (! isValidPath(absolutePath)) throw Error('The given path isnt valid.')
+
+  return absolutePath
 }
 
 const listPegjsFiles = rulesDir =>
   glob.sync('*.pegjs', { cwd: rulesDir, nodir: true })
-    .map(f => path.join(rulesDir, f))
+    .map(f => pathLib.join(rulesDir, f))
 
 // Makes a parser fail gracefully
 const makeGraceful = parser => {
@@ -32,20 +44,14 @@ const makeGraceful = parser => {
   return { parse }
 }
 
-const buildRelativePath = dirPath => {
-  const parentDirPath = path.dirname(module.parent.filename)
-  return path.join(parentDirPath, dirPath)
-}
-
-const parsers = ({ path: dirPath, graceful = true, pegOptions } = {}) => {
-  assert.strictEqual(typeof dirPath, 'string', 'the path directory must be a string.')
+const parsers = ({ path, graceful = true, pegOptions } = {}) => {
+  assert.strictEqual(typeof path, 'string', 'the path directory must be a string.')
   assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
-  const relativePath = buildRelativePath(dirPath)
-  assertValidPath(relativePath)
-  const filesArray = listPegjsFiles(relativePath)
+  const validDirPath = resolveDir(path)
+  const filesArray = listPegjsFiles(validDirPath)
 
   return filesArray.reduce((acc, file) => {
-    const { name: fileName } = path.parse(file)
+    const { name: fileName } = pathLib.parse(file)
     const buildParser = peg.buildParser(file, pegOptions)
     const { parse } = (graceful)
       ? makeGraceful(buildParser)

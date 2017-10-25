@@ -3,6 +3,9 @@
 const assert = require('assert')
 const path = require('path')
 const peg = require('@invisible/pegjs-import')
+const {
+  isEmpty,
+} = require('lodash/fp')
 
 const parsers = require('../index.js')
 
@@ -17,10 +20,28 @@ describe('parsers', () => {
     assert.deepStrictEqual(actual, expected, 'it does not return the filenames as keys')
   })
 
+  it('should work with absolute paths', () => {
+    const testPath = path.join(__dirname, 'parsers')
+
+    const parser = parsers({ path: testPath })
+
+    const actual = Object.keys(parser)
+    const expected = ['eol', 'whitespace']
+    assert.deepStrictEqual(actual, expected, 'it does not work with absolute path')
+  })
+
   it('should throw with an invalid directory', () => {
     const testPath = 'a/invalid/directory'
 
     assert.throws(() => parsers({ path: testPath }))
+  })
+
+  it('should return an empty array for directories without any .pegjs files', () => {
+    const testPath = './'
+
+    const actual = parsers({ path: testPath })
+
+    assert(isEmpty(actual), 'it does not return an empty array as expected')
   })
 
   it('should return a function', () => {
