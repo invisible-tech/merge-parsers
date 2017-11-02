@@ -17,7 +17,7 @@ machine:
     PORT: 3000
 
   node:
-    version: "8.5.0"
+    version: "9.0.0"
 
 test:
   override:

@@ -85,4 +85,17 @@ describe('parsers', () => {
     const expected = peg.buildParser(testFilePath).parse(text)
     assert.deepStrictEqual(actual, expected, 'it does not return the parsed output')
   })
+
+  it('should throw for a wrong path type', () => {
+    const testPath = 12345
+
+    assert.throws(() => parsers({ path: testPath }))
+  })
+
+  it('should throw for a wrong graceful type', () => {
+    const testPath = './parsers'
+    const graceful = 'enabled'
+
+    assert.throws(() => parsers({ path: testPath, graceful }))
+  })
 })
