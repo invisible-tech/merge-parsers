@@ -45,8 +45,8 @@ const makeGraceful = parser => {
 }
 
 const parsers = ({ path, graceful = true, pegOptions } = {}) => {
-  assert.strictEqual(typeof path, 'string', 'the path directory must be a string.')
-  assert.strictEqual(typeof graceful, 'boolean', 'the graceful option must be a boolean.')
+  assert.strictEqual(typeof path, 'string', Error('the path directory must be a string.'))
+  assert.strictEqual(typeof graceful, 'boolean', Error('the graceful option must be a boolean.'))
   const validDirPath = resolveDir(path)
   const filesArray = listPegjsFiles(validDirPath)
 
