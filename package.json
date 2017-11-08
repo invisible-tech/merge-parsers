@@ -33,7 +33,7 @@
   "devDependencies": {
     "@invisible/changelog-update": "^1.0.7",
     "@invisible/eslint-config": "^1.1.6",
-    "@invisible/publish": "^1.1.8",
+    "@invisible/publish": "^2.0.0",
     "eslint": "^4.8.0",
     "lodash": "^4.17.4",
     "mocha": "^3.4.2",
