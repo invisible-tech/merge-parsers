@@ -2,6 +2,10 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [1.3.3] - 2017-11-09
+### Chore
+  - Use @invisible/release package.
+
 ## [1.3.2] - 2017-11-14
 ### Chore
   - Update @invisible/publish.
@@ -33,3 +37,4 @@
 
 [1.2.1]: https://github.com/invisible-tech/merge-parsers/compare/v1.2.0...v1.2.1
 [1.3.0]: https://github.com/invisible-tech/merge-parsers/compare/v1.2.1...v1.3.0
+[1.3.3]: https://github.com/invisible-tech/merge-parsers/compare/v1.3.0...v1.3.3
