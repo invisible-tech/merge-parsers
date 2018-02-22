@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@invisible/changelog-update@^1.0.7":
+"@invisible/changelog-update@1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@invisible/changelog-update/-/changelog-update-1.0.7.tgz#36ab19a4b75112a2d69a1ad8cea21d02536737db"
   dependencies:
@@ -14,7 +14,7 @@
   optionalDependencies:
     dotenv "^4.0.0"
 
-"@invisible/eslint-config@^1.1.6":
+"@invisible/eslint-config@1.1.6":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@invisible/eslint-config/-/eslint-config-1.1.6.tgz#c8e66065f0ea5e202c0541f82b5bddfcf344ef2e"
   dependencies:
@@ -30,7 +30,7 @@
   dependencies:
     pegjs "^0.10.0"
 
-"@invisible/publish@^2.0.0":
+"@invisible/publish@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@invisible/publish/-/publish-2.0.0.tgz#b7b416219fd9f6decfaea586b77f9232a2d39a31"
   dependencies:
@@ -565,7 +565,7 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.8.0:
+eslint@4.8.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.8.0.tgz#229ef0e354e0e61d837c7a80fdfba825e199815e"
   dependencies:
@@ -1186,7 +1186,7 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
-lodash@^4.11.1, lodash@^4.13.1, lodash@^4.17.4, lodash@^4.3.0:
+lodash@4.17.4, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1284,7 +1284,7 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mocha@^3.4.2:
+mocha@3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.3.tgz#1e0480fe36d2da5858d1eb6acc38418b26eaa20d"
   dependencies:
@@ -1382,7 +1382,7 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
-nsp@^2.8.1:
+nsp@2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/nsp/-/nsp-2.8.1.tgz#436e3f13869e0610d3a38f59d55f9b353cc32817"
   dependencies:

@@ -31,12 +31,12 @@
     "url": "git+https://github.com/invisible-tech/merge-parsers.git"
   },
   "devDependencies": {
-    "@invisible/changelog-update": "^1.0.7",
-    "@invisible/eslint-config": "^1.1.6",
-    "@invisible/publish": "^2.0.0",
-    "eslint": "^4.8.0",
-    "lodash": "^4.17.4",
-    "mocha": "^3.4.2",
-    "nsp": "^2.8.1"
+    "@invisible/changelog-update": "1.0.7",
+    "@invisible/eslint-config": "1.1.6",
+    "@invisible/publish": "2.0.0",
+    "eslint": "4.8.0",
+    "lodash": "4.17.4",
+    "mocha": "3.5.3",
+    "nsp": "2.8.1"
   }
 }
