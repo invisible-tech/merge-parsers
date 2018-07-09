@@ -2,8 +2,8 @@
 
 const assert = require('assert')
 const fs = require('fs')
-const glob = require('glob')
 const pathLib = require('path')
+const glob = require('glob')
 const peg = require('@invisible/pegjs-import')
 
 const isValidPath = path => {
@@ -37,7 +37,7 @@ const makeGraceful = parser => {
     // We try & catch here so parsers return undefined instead of throwing and crashing
     try {
       return parser.parse(text)
-    } catch (e) {
+    } catch (err) {
       return undefined
     }
   }

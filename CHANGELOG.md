@@ -2,6 +2,12 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [1.3.3] - 2018-07-09
+### Internal
+  - Update CircleCI to version 2
+
+[1.3.3]: https://github.com/invisible-tech/merge-parsers/compare/v1.3.2...v1.3.3
+
 ## [1.3.2] - 2017-11-14
 ### Chore
   - Update @invisible/publish.
