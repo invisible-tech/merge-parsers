@@ -7,7 +7,7 @@ const {
   isEmpty,
 } = require('lodash/fp')
 
-const parsers = require('../')
+const parsers = require('../') // eslint-disable-line unicorn/import-index
 
 describe('parsers', () => {
   it('should return the filenames as keys', () => {
