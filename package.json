@@ -1,7 +1,7 @@
 {
   "name": "@invisible/merge-parsers",
   "license": "MIT",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "",
   "engines": {
     "node": "^8.5.0"
@@ -31,9 +31,9 @@
     "url": "git+https://github.com/invisible-tech/merge-parsers.git"
   },
   "devDependencies": {
-    "@invisible/changelog-update": "^1.0.7",
+    "@invisible/changelog-update": "^1.1.0",
     "@invisible/eslint-config": "^1.1.6",
-    "@invisible/publish": "^2.0.0",
+    "@invisible/publish": "^2.0.1",
     "eslint": "^4.8.0",
     "lodash": "^4.17.4",
     "mocha": "^3.4.2",
